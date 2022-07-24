@@ -10,6 +10,8 @@
 
     <modules>
         <module>jdbc-transaction</module>
+        <module>hibernate-transaction</module>
+        <module>spring-transaction</module>
     </modules>
 
     <properties>

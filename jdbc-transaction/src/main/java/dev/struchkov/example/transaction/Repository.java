@@ -1,5 +1,7 @@
 package dev.struchkov.example.transaction;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -7,7 +9,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 @Slf4j
-public class Repository {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Repository {
 
     public static Connection getConnection() {
         try {

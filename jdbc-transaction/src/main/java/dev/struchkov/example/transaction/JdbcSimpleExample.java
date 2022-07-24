@@ -6,16 +6,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class JdbcExample {
+public class JdbcSimpleExample {
 
-    private static final String INSERT_TRANSACTION_SQL = "INSERT INTO transaction(person_from, person_to, amount) values (?, ?, ?)";
-    private static final String UPDATE_BALANCE_PERSON_FROM_SQL = "UPDATE person SET balance = (balance - ?) WHERE id = ?";
-    private static final String UPDATE_BALANCE_PERSON_TO_SQL = "UPDATE person SET balance = (balance + ?) WHERE id = ?";
+    public static final String INSERT_TRANSACTION_SQL = "INSERT INTO transaction(person_from, person_to, amount) values (?, ?, ?)";
+    public static final String UPDATE_BALANCE_PERSON_FROM_SQL = "UPDATE person SET balance = (balance - ?) WHERE id = ?";
+    public static final String UPDATE_BALANCE_PERSON_TO_SQL = "UPDATE person SET balance = (balance + ?) WHERE id = ?";
 
     public static void main(String[] args) {
-        final JdbcExample jdbcExample = new JdbcExample();
+        final JdbcSimpleExample jdbcSimpleExample = new JdbcSimpleExample();
 //        jdbcExample.runNoTransaction(2L, 1L, 100L);
-        jdbcExample.runWithTransaction(2L, 1L, 100L);
+        jdbcSimpleExample.runWithTransaction(2L, 1L, 100L);
     }
 
     @SneakyThrows
@@ -32,10 +32,9 @@ public class JdbcExample {
         final Connection connection = Repository.getConnection();
 
         try (connection) {
-
             connection.setAutoCommit(false);
             sendMoney(connection, personIdFrom, personIdTo, amount);
-
+            connection.commit();
         } catch (RuntimeException | SQLException e) {
             connection.rollback();
         } finally {
