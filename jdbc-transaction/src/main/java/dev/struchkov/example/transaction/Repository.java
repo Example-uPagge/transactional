@@ -24,4 +24,16 @@ public final class Repository {
         return null;
     }
 
+    public static Connection getConnectionH2() {
+        try {
+            final String url = "jdbc:h2:file:/Users/upagge/IdeaProjects/struchkov/example/spring-boot/spring-boot-transaction/db/test";
+            final String user = "sa";
+            final String passwd = "pass";
+            return DriverManager.getConnection(url, user, passwd);
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
 }

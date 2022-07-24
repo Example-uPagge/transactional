@@ -11,13 +11,13 @@ public class DirtyReadExample {
 
     public static void main(String[] args) throws SQLException, InterruptedException {
         try (
-                final Connection connection = Repository.getConnection();
+                final Connection connection = Repository.getConnectionH2();
                 final Statement statement = connection.createStatement()
         ) {
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            statement.execute("UPDATE person SET balance = 100000 WHERE id = 1");
+            statement.executeUpdate("UPDATE person SET balance = 100000 WHERE id = 1");
 
             new OtherTransaction().start();
             Thread.sleep(2000);
@@ -30,7 +30,7 @@ public class DirtyReadExample {
         @Override
         public void run() {
             try (
-                    final Connection connection = Repository.getConnection();
+                    final Connection connection = Repository.getConnectionH2();
                     final Statement statement = connection.createStatement()
             ) {
                 connection.setAutoCommit(false);
