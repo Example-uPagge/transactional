@@ -17,7 +17,7 @@ public class DirtyReadExample {
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
-            statement.executeUpdate("UPDATE person SET balance = 100000 WHERE id = 1");
+            statement.executeUpdate("UPDATE person SET balance = 100000 WHERE id = 1"); 
 
             new OtherTransaction().start();
             Thread.sleep(2000);
