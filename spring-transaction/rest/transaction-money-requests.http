@@ -1,0 +1,9 @@
+### Отправляем деньги от первого пользователя втором
+POST http://localhost:8080/api/money/send
+Content-Type: application/json
+
+{
+  "personFrom": 1,
+  "personTo": 2,
+  "amount": 100
+}

@@ -1,0 +1,11 @@
+### Смотрим на первого пользователя
+GET http://localhost:8080/api/person/1
+Accept: application/json
+
+### Смотрим на второго пользователя
+GET http://localhost:8080/api/person/2
+Accept: application/json
+
+### Смотрим на третьего пользователя
+GET http://localhost:8080/api/person/3
+Accept: application/json
