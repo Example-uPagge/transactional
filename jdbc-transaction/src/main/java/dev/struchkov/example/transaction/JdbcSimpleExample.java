@@ -14,17 +14,16 @@ public class JdbcSimpleExample {
 
     public static void main(String[] args) {
         final JdbcSimpleExample jdbcSimpleExample = new JdbcSimpleExample();
-//        jdbcExample.runNoTransaction(2L, 1L, 100L);
-        jdbcSimpleExample.runWithTransaction(2L, 1L, 100L);
+        jdbcSimpleExample.runNoTransaction(2L, 1L, 100L);
+//        jdbcSimpleExample.runWithTransaction(2L, 1L, 100L);
     }
 
-    @SneakyThrows
     private void runNoTransaction(Long personIdFrom, Long personIdTo, Long amount) {
-        final Connection connection = Repository.getConnection();
-
-        sendMoney(connection, personIdFrom, personIdTo, amount);
-
-        connection.close();
+        try (final Connection connection = Repository.getConnection()) {
+            sendMoney(connection, personIdFrom, personIdTo, amount);
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     @SneakyThrows
